@@ -1,16 +1,14 @@
-FROM debian:bookworm-slim
+FROM python:3.11-slim
 
 WORKDIR /app
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
-    python3 \
-    python3-pip \
-    python3-dev \
     build-essential \
+    python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-RUN pip3 install --no-cache-dir pycomm3 python-dotenv
+RUN pip install --no-cache-dir pycomm3
 
 COPY src/main.py .
 
@@ -20,4 +18,4 @@ ENV TAG_READ=Motor_Speed
 ENV TAG_WRITE=Motor_Start
 ENV POLL_INTERVAL=5
 
-CMD ["python3", "main.py"]
+CMD ["python", "main.py"]
